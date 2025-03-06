@@ -1,0 +1,13 @@
+name: "Auto Withdraw Bot"
+description: "A bot that looks at the last time EIPs were edited and marks them as withdrawn if they haven't been edited in a certain amount of time"
+inputs:
+  GITHUB-TOKEN:
+    description: |-
+      The Github token to be used by this bot when creating branches, committing updated files, and open PRs
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - run: cd ${{github.action_path}} && yarn install && yarn build && GITHUB_TOKEN=${{ inputs.GITHUB-TOKEN }} node build/src/index.js
+      shell: bash
